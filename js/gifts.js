@@ -35,6 +35,7 @@ document.addEventListener('DOMContentLoaded', async () => {
                 const row = `
                     <tr>
                         <td>${gift.id}</td>
+                        <td><img src="${gift.image}" alt="${gift.name}" style="max-width: 100px;"></td>
                         <td>${gift.name}</td>
                         <td>${gift.price} ₽</td>
                         <td><a href="${gift.link}" target="_blank">Ссылка</a></td>
