@@ -40,7 +40,11 @@ document.addEventListener('DOMContentLoaded', () => {
                     <img src="${imagePath}" alt="${dish}">
                     <div>
                         <span>${dish}</span>
-                        <input type="number" name="${dish}" min="0" value="0" class="dish-quantity">
+                        <div class="quantity-controls">
+                            <button class="decrement-btn" data-dish="${dish}">-</button>
+                            <input type="number" name="${dish}" min="0" value="0" readonly>
+                            <button class="increment-btn" data-dish="${dish}">+</button>
+                        </div>
                     </div>
                 </div>
             `;
@@ -76,7 +80,38 @@ document.addEventListener('DOMContentLoaded', () => {
     };
 
     // Слушаем изменения
-    document.querySelectorAll('.dish-quantity').forEach(input => {
-        input.addEventListener('change', updateCart);
+    document.querySelectorAll('.increment-btn').forEach(button => {
+        button.addEventListener('click', function() {
+            const dishName = this.getAttribute('data-dish');
+            const input = this.parentElement.querySelector('input');
+            let currentValue = parseInt(input.value);
+            input.value = ++currentValue;
+            updateCart();
+        });
+    });
+
+    document.querySelectorAll('.decrement-btn').forEach(button => {
+        button.addEventListener('click', function() {
+            const dishName = this.getAttribute('data-dish');
+            const input = this.parentElement.querySelector('input');
+            let currentValue = parseInt(input.value);
+            if (currentValue > 0) {
+                input.value = --currentValue;
+                updateCart();
+            }
+        });
+    });
+
+    // Раскрывающиеся категории
+    document.querySelectorAll('.menu-section h3').forEach(header => {
+        header.addEventListener('click', function() {
+            const section = this.parentElement;
+            const dishesGrid = section.querySelector('.dishes-grid');
+            if (dishesGrid.style.display === 'none') {
+                dishesGrid.style.display = 'grid';
+            } else {
+                dishesGrid.style.display = 'none';
+            }
+        });
     });
 });
