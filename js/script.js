@@ -81,7 +81,8 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // Слушаем изменения
     document.querySelectorAll('.increment-btn').forEach(button => {
-        button.addEventListener('click', function() {
+        button.addEventListener('click', function(event) {
+            event.preventDefault(); // Предотвращаем отправку формы
             const dishName = this.getAttribute('data-dish');
             const input = this.parentElement.querySelector('input');
             let currentValue = parseInt(input.value);
@@ -91,7 +92,8 @@ document.addEventListener('DOMContentLoaded', () => {
     });
 
     document.querySelectorAll('.decrement-btn').forEach(button => {
-        button.addEventListener('click', function() {
+        button.addEventListener('click', function(event) {
+            event.preventDefault(); // Предотвращаем отправку формы
             const dishName = this.getAttribute('data-dish');
             const input = this.parentElement.querySelector('input');
             let currentValue = parseInt(input.value);
