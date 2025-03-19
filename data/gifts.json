@@ -137,7 +137,7 @@
     },
     {
         "id": 18,
-        "name": "пазлы для детей «Лесные животные»",
+        "name": "Пазлы для детей «Лесные животные»",
         "price": 877,
         "link": "https://wildberries.ru/catalog/135622104/detail.aspx",
         "image": "https://basket-10.wbbasket.ru/vol1356/part135622/135622104/images/big/1.webp",
@@ -175,16 +175,8 @@
         "image": "https://basket-12.wbbasket.ru/vol1761/part176193/176193498/images/big/1.webp",
         "reserved": false
     },
-        {
-        "id": 23,
-        "name": "Книга пищалка для ванны детская Стихи малышам Барто А.",
-        "price": 323,
-        "link": "https://wildberries.ru/catalog/176193498/detail.aspx",
-        "image": "https://basket-12.wbbasket.ru/vol1761/part176193/176193498/images/big/1.webp",
-        "reserved": false
-    },
     {
-        "id": 24,
+        "id": 23,
         "name": "Велосипед трехколесный 760 поворотное сиденье, музыка, надувка",
         "price": 13500,
         "link": "https://wildberries.ru/catalog/159505878/detail.aspx",
@@ -192,7 +184,7 @@
         "reserved": false
     },
     {
-        "id": 25,
+        "id": 24,
         "name": "Стеллаж деревянный напольный для игрушек домик",
         "price": 4560,
         "link": "https://www.wildberries.ru/catalog/132228646/detail.aspx",
@@ -200,7 +192,7 @@
         "reserved": false
     },
     {
-        "id": 26,
+        "id": 25,
         "name": "Набор контейнеров для игрушек пластиковый",
         "price": 2514,
         "link": "https://wildberries.ru/catalog/131907997/detail.aspx",
@@ -208,7 +200,7 @@
         "reserved": false
     },
     {
-        "id": 27,
+        "id": 26,
         "name": "Набор наклеек на контейнеры",
         "price": 419,
         "link": "https://wildberries.ru/catalog/184652268/detail.aspx",
@@ -216,7 +208,7 @@
         "reserved": false
     },
     {
-        "id": 28,
+        "id": 27,
         "name": "Папка-конверт А5 на молнии, 5 штук",
         "price": 342,
         "link": "https://www.wildberries.ru/catalog/187475265/detail.aspx",
@@ -224,7 +216,7 @@
         "reserved": false
     },
     {
-        "id": 29,
+        "id": 28,
         "name": "Папка конверт для документов на молнии комплект 12 штук А4",
         "price": 333,
         "link": "https://wildberries.ru/catalog/158571441/detail.aspx",
@@ -232,7 +224,7 @@
         "reserved": false
     },
     {
-        "id": 30,
+        "id": 29,
         "name": "Папки утолщенные для документов комплект А4 А5 А6 зип",
         "price": 444,
         "link": "https://wildberries.ru/catalog/220674391/detail.aspx",
@@ -240,7 +232,7 @@
         "reserved": false
     },
     {
-        "id": 31,
+        "id": 30,
         "name": "Трусики для приучения к горшку",
         "price": 1302,
         "link": "https://wildberries.ru/catalog/186104962/detail.aspx",
@@ -248,7 +240,7 @@
         "reserved": false
     },
     {
-        "id": 32,
+        "id": 31,
         "name": "Ботинки детские весна",
         "price": 1570,
         "link": "https://www.wildberries.ru/catalog/204915999/detail.aspx",
@@ -256,7 +248,7 @@
         "reserved": false
     },
     {
-        "id": 33,
+        "id": 32,
         "name": "Конструктор с шуруповертом и шестеренками",
         "price": 1876,
         "link": "https://wildberries.ru/catalog/9367676/detail.aspx",
@@ -264,7 +256,7 @@
         "reserved": false
     },
     {
-        "id": 34,
+        "id": 33,
         "name": "Комбинезон слип нательный для новорожденных малышей",
         "price": 696,
         "link": "https://wildberries.ru/catalog/220979446/detail.aspx",
@@ -272,7 +264,7 @@
         "reserved": false
     },
     {
-        "id": 35,
+        "id": 34,
         "name": "Набор для уборки детский с пылесосом",
         "price": 1913,
         "link": "https://www.wildberries.ru/catalog/282251156/detail.aspx",
@@ -280,7 +272,7 @@
         "reserved": false
     },
     {
-        "id": 36,
+        "id": 35,
         "name": "Футболка базовая однотонная для малыша с кнопками",
         "price": 491,
         "link": "https://wildberries.ru/catalog/148616332/detail.aspx",
@@ -288,15 +280,15 @@
         "reserved": false
     },
     {
-        "id": 37,
-        "name": "Брюки для малыша для девочки/мальчика для сада/для дома",
+        "id": 36,
+        "name": "Брюки для малыша для девочки и мальчика для сада и дома",
         "price": 358,
         "link": "https://wildberries.ru/catalog/148690229/detail.aspx",
         "image": "https://basket-10.wbbasket.ru/vol1486/part148690/148690229/images/big/1.webp",
         "reserved": false
     },
     {
-        "id": 38,
+        "id": 37,
         "name": "Комбинезон муслиновый нательный летний",
         "price": 1053,
         "link": "https://wildberries.ru/catalog/233668159/detail.aspx",
@@ -304,7 +296,7 @@
         "reserved": false
     },
     {
-        "id": 39,
+        "id": 38,
         "name": "Набор 3 шт кофты для новорожденных девочек и мальчиков весна",
         "price": 1264,
         "link": "https://wildberries.ru/catalog/154905972/detail.aspx",
@@ -312,7 +304,7 @@
         "reserved": false
     },
     {
-        "id": 40,
+        "id": 39,
         "name": "Книжка для купания/Дикие животные/Искупай меня",
         "price": 397,
         "link": "https://wildberries.ru/catalog/244518096/detail.aspx",
@@ -320,7 +312,7 @@
         "reserved": false
     },
     {
-        "id": 41,
+        "id": 40,
         "name": "Тактильное сенсорное лото по методике Монтессори, 10 фишек",
         "price": 868,
         "link": "https://wildberries.ru/catalog/26749460/detail.aspx",
@@ -328,7 +320,7 @@
         "reserved": false
     },
     {
-        "id": 42,
+        "id": 41,
         "name": "Пеленка непромокаемая многоразовая 100х150",
         "price": 1415,
         "link": "https://wildberries.ru/catalog/254720623/detail.aspx",
@@ -336,11 +328,19 @@
         "reserved": false
     },
     {
-        "id": 43,
+        "id": 42,
         "name": "Ловец солнца радужная наклейка на стекло",
         "price": 356,
         "link": "https://wildberries.ru/catalog/90935450/detail.aspx",
         "image": "https://basket-05.wbbasket.ru/vol909/part90935/90935450/images/big/1.webp",
+        "reserved": false
+    },
+    {
+        "id": 43,
+        "name": "Набор книг для занятий дома Развививашки Монтессори 5 книг",
+        "price": 378,
+        "link": "https://www.wildberries.ru/catalog/170559040/detail.aspx",
+        "image": "https://basket-12.wbbasket.ru/vol1705/part170559/170559040/images/big/1.webp",
         "reserved": false
     }
 ]
