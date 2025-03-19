@@ -106,6 +106,8 @@ document.addEventListener('DOMContentLoaded', async () => {
                     loadGifts();
                 } else {
                     alert('Ошибка при обновлении списка.');
+                    const errorData = await response.json();
+                    console.error('GitHub API error:', errorData);
                 }
             } catch (error) {
                 console.error('Ошибка при отправке данных:', error);
