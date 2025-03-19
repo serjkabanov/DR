@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Список планируемых покупок</title>
+    <!-- Подключение CSS -->
+    <link rel="stylesheet" href="css/gifts.css">
+</head>
+<body>
+    <div class="container">
+        <h1>Список планируемых покупок</h1>
+
+        <!-- Список подарков -->
+        <table id="giftList">
+            <thead>
+                <tr>
+                    <th>№</th>
+                    <th>Название</th>
+                    <th>Стоимость</th>
+                    <th>Ссылка</th>
+                    <th>Действие</th>
+                </tr>
+            </thead>
+            <tbody>
+                <!-- Данные будут загружаться через JavaScript -->
+            </tbody>
+        </table>
+
+        <!-- Кнопка подтверждения -->
+        <button id="confirmButton" disabled>Подтвердить выбор</button>
+
+        <!-- Список отмеченных подарков -->
+        <h3>Отмеченные подарки:</h3>
+        <ul id="selectedGifts"></ul>
+    </div>
+
+    <!-- Подключение JavaScript -->
+    <script src="js/gifts.js"></script>
+</body>
+</html>
