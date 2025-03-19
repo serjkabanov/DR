@@ -104,16 +104,12 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     });
 
-    // Раскрывающиеся категории
-    document.querySelectorAll('.menu-section h3').forEach(header => {
-        header.addEventListener('click', function() {
-            const section = this.parentElement;
-            const dishesGrid = section.querySelector('.dishes-grid');
-            if (dishesGrid.style.display === 'none') {
-                dishesGrid.style.display = 'grid';
-            } else {
-                dishesGrid.style.display = 'none';
-            }
-        });
+    // Подтверждение отправки формы
+    const form = document.getElementById('rsvpForm');
+    form.addEventListener('submit', function(event) {
+        const isConfirmed = confirm("Вы точно уверены, что хотите отправить форму?");
+        if (!isConfirmed) {
+            event.preventDefault(); // Отменяем отправку формы
+        }
     });
 });
