@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>RSVP на день рождения</title>
+    <!-- Подключение CSS -->
+    <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+    <div class="container">
+        <h1>Приглашение на день рождения!</h1>
+        
+        <!-- Форма -->
+        <form id="rsvpForm" action="https://formspree.io/f/xwplpjbj" method="POST">
+            <!-- Имя -->
+            <label>
+                Ваше имя:
+                <input type="text" name="name" required>
+            </label>
+
+            <!-- Категории блюд -->
+            <div class="menu-section">
+                <h3>Горячее</h3>
+                <div class="dishes-grid" id="hotDishes">
+                    <!-- Блюда добавляются через JavaScript -->
+                </div>
+            </div>
+
+            <div class="menu-section">
+                <h3>Салаты</h3>
+                <div class="dishes-grid" id="salads">
+                    <!-- Блюда добавляются через JavaScript -->
+                </div>
+            </div>
+
+            <div class="menu-section">
+                <h3>Лепешка</h3>
+                <div class="dishes-grid" id="lepeshka">
+                    <!-- Блюда добавляются через JavaScript -->
+                </div>
+            </div>
+
+            <!-- Корзина -->
+            <div class="cart" id="cart">
+                <h3>Ваш заказ:</h3>
+                <ul id="cartItems"></ul>
+            </div>
+
+            <!-- Скрытые поля для Formspree -->
+            <input type="hidden" name="order" id="orderData">
+
+            <button type="submit">Отправить RSVP</button>
+        </form>
+    </div>
+
+    <!-- Подключение JavaScript -->
+    <script src="js/script.js"></script>
+</body>
+</html>
