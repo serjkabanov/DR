@@ -1,7 +1,6 @@
 document.addEventListener('DOMContentLoaded', async () => {
-    const GITHUB_REPO = 'ваш-репозиторий';
+    const GITHUB_REPO = 'serjkabanov/DR';
     const GITHUB_FILE_PATH = 'data/gifts.json';
-    const GITHUB_TOKEN = 'ваш-github-token'; // Токен для доступа к GitHub API
 
     let gifts = [];
     let selectedGifts = [];
@@ -10,10 +9,17 @@ document.addEventListener('DOMContentLoaded', async () => {
     const loadGifts = async () => {
         try {
             const response = await fetch(`https://api.github.com/repos/${GITHUB_REPO}/contents/${GITHUB_FILE_PATH}`);
+            if (!response.ok) {
+                throw new Error(`GitHub API error: ${response.status} ${response.statusText}`);
+            }
             const data = await response.json();
-            const decodedContent = atob(data.content); // Декодируем Base64
-            gifts = JSON.parse(decodedContent);
-            renderGiftList();
+            if (data.content) {
+                const decodedContent = atob(data.content); // Декодируем Base64
+                gifts = JSON.parse(decodedContent);
+                renderGiftList();
+            } else {
+                console.error('No content found in the response');
+            }
         } catch (error) {
             console.error('Ошибка при загрузке данных:', error);
         }
@@ -84,7 +90,6 @@ document.addEventListener('DOMContentLoaded', async () => {
                 const response = await fetch(`https://api.github.com/repos/${GITHUB_REPO}/contents/${GITHUB_FILE_PATH}`, {
                     method: 'PUT',
                     headers: {
-                        'Authorization': `token ${GITHUB_TOKEN}`,
                         'Content-Type': 'application/json'
                     },
                     body: JSON.stringify({
