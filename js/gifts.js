@@ -1,5 +1,5 @@
 document.addEventListener('DOMContentLoaded', async () => {
-    const GITHUB_RAW_URL = 'https://raw.githubusercontent.com/serjkabanov/DR/main/data/gifts.json';
+    const GITHUB_RAW_URL = 'https://serjkabanov.github.io/DR/data/gifts.json';
 
     let gifts = [];
     let selectedGifts = [];
