@@ -13,13 +13,13 @@ document.addEventListener('DOMContentLoaded', async () => {
                 throw new Error(`Ошибка загрузки: ${response.status} ${response.statusText}`);
             }
             const data = await response.json();
-            gifts = data.feed.entry.map(entry => ({
-                id: parseInt(entry.gsx$id.$t),
-                name: entry.gsx$name.$t,
-                price: parseFloat(entry.gsx$price.$t),
-                link: entry.gsx$link.$t,
-                image: entry.gsx$image.$t,
-                reserved: entry.gsx$reserved.$t === 'true' // Преобразуем строку в boolean
+            gifts = data.values.slice(1).map(row => ({ // Пропускаем первую строку (заголовки)
+                id: parseInt(row[0]),         // Столбец A (id)
+                name: row[1],       // Столбец B (name)
+                price: parseFloat(row[2]),    // Столбец C (price)
+                link: row[3],        // Столбец D (link)
+                image: row[4],       // Столбец E (image)
+                reserved: row[5] === 'TRUE' || row[5] === true // Столбец F (reserved) - обрабатываем и строку 'TRUE' и boolean true
             }));
             renderGiftList();
         } catch (error) {
