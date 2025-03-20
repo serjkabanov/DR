@@ -1,5 +1,5 @@
 document.addEventListener('DOMContentLoaded', async () => {
-    const GOOGLE_SHEET_JSON_URL = 'https://spreadsheets.google.com/feeds/list/1Qd0Q7CbucpJdYDjuFbDl5sRqXOeafUBDHgaLqRHCxFY/od6/public/values?alt=json'; // Вставьте сюда URL для JSON
+    const GOOGLE_SHEET_JSON_URL = 'https://sheets.googleapis.com/v4/spreadsheets/1Qd0Q7CbucpJdYDjuFbDl5sRqXOeafUBDHgaLqRHCxFY/values/GiftsData?alt=json&key=AIzaSyA1UzERW7ZnB4ltC5d9EzOrHFsbx0AVjv4'; // Вставьте сюда URL для JSON
     const GOOGLE_APPS_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbyttzp2kbfbF4GyKpV9aynUP0PJc6ltd651FhUPIrQUG-fjTNywWcEzJXDLCpbzVx-E/exec'; // Вставьте сюда URL веб-приложения
 
     let gifts = [];
