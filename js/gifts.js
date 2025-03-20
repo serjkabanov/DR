@@ -92,7 +92,7 @@ document.addEventListener('DOMContentLoaded', async () => {
                     },
                     body: JSON.stringify({
                         message: 'Обновление списка подарков',
-                        content: btoa(unescape(encodeURIComponent(JSON.stringify(gifts, null, 2)))), // ИСПРАВЛЕНО
+                        content: btoa(String.fromCharCode(...new TextEncoder().encode(JSON.stringify(gifts, null, 2)))),
                         sha: await getFileSHAForUpdate()
                     })
                 });
