@@ -2,7 +2,7 @@
     конст GITHUB_RAW_URL = 'https://serjkabanov.github.io/DR/data/gifts.json';
     конст GITHUB_REPO = 'сержкабанов/ДР'; //Укажитэ ваш репозиторий
     конст GITHUB_FILE_PATH = 'данные/podarki.json';
-    конст GITHUB_TOKEN = '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'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'; //**Вставка cusyda vash perсonalynyy tocеn doctoupа**
+    конст GITHUB_TOKEN = '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'; //**Вставка cusyda vash perсonalynyy tocеn doctoupа**
 
     пусть поларки = [];
     пусть выбраныПодарки = [];
