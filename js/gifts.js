@@ -92,12 +92,12 @@ document.addEventListener('DOMContentLoaded', async () => {
                     },
                     body: JSON.stringify({
                         message: 'Обновление списка подарков',
-                        content: btoa(JSON.stringify(gifts, null, 2)),
+                        content: btoa(unescape(encodeURIComponent(JSON.stringify(gifts, null, 2)))), // ИСПРАВЛЕНО
                         sha: await getFileSHAForUpdate()
                     })
                 });
-                console.log("PUT request response status:", response.status); // Добавлено
-                console.log("PUT request response text:", response.statusText); // Добавлено
+                console.log("PUT request response status:", response.status);
+                console.log("PUT request response text:", response.statusText);
                 if (response.ok) {
                     alert('Список успешно обновлен на GitHub!');
                     selectedGifts = [];
@@ -107,7 +107,7 @@ document.addEventListener('DOMContentLoaded', async () => {
                     alert('Ошибка при обновлении списка на GitHub.');
                     const errorData = await response.json();
                     console.error('GitHub API error:', errorData);
-                    console.log("GitHub API error data:", errorData); // Добавлено
+                    console.log("GitHub API error data:", errorData);
                 }
             } catch (error) {
                 console.error('Ошибка при отправке данных:', error);
@@ -123,14 +123,14 @@ document.addEventListener('DOMContentLoaded', async () => {
                     'Authorization': `token ${GITHUB_TOKEN}`
                 }
             });
-            console.log("getFileSHAForUpdate response status:", response.status); // Добавлено
-            console.log("getFileSHAForUpdate response text:", response.statusText); // Добавлено
+            console.log("getFileSHAForUpdate response status:", response.status);
+            console.log("getFileSHAForUpdate response text:", response.statusText);
             const data = await response.json();
-            console.log("getFileSHAForUpdate data:", data); // Добавлено
+            console.log("getFileSHAForUpdate data:", data);
             return data.sha;
         } catch (error) {
             console.error('Ошибка при получении SHA:', error);
-            return null; // Или другое значение по умолчанию, если не удалось получить SHA
+            return null;
         }
     };
 
