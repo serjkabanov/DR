@@ -1,20 +1,26 @@
 document.addEventListener('DOMContentLoaded', async () => {
-    const GITHUB_RAW_URL = 'https://serjkabanov.github.io/DR/data/gifts.json';
-    const GITHUB_REPO = 'serjkabanov/DR'; // Укажите ваш репозиторий
-    const GITHUB_FILE_PATH = 'data/gifts.json';
-    const GITHUB_TOKEN = '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'; // **Вставьте сюда ваш персональный токен доступа**
+    const GOOGLE_SHEET_JSON_URL = 'https://spreadsheets.google.com/feeds/list/1Qd0Q7CbucpJdYDjuFbDl5sRqXOeafUBDHgaLqRHCxFY/od6/public/values?alt=json'; // Вставьте сюда URL для JSON
+    const GOOGLE_APPS_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbyttzp2kbfbF4GyKpV9aynUP0PJc6ltd651FhUPIrQUG-fjTNywWcEzJXDLCpbzVx-E/exec'; // Вставьте сюда URL веб-приложения
 
     let gifts = [];
     let selectedGifts = [];
 
-    // Load gifts from the raw GitHub URL
+    // Load gifts from the Google Sheet (JSON)
     const loadGifts = async () => {
         try {
-            const response = await fetch(GITHUB_RAW_URL);
+            const response = await fetch(GOOGLE_SHEET_JSON_URL);
             if (!response.ok) {
                 throw new Error(`Ошибка загрузки: ${response.status} ${response.statusText}`);
             }
-            gifts = await response.json();
+            const data = await response.json();
+            gifts = data.feed.entry.map(entry => ({
+                id: parseInt(entry.gsx$id.$t),
+                name: entry.gsx$name.$t,
+                price: parseFloat(entry.gsx$price.$t),
+                link: entry.gsx$link.$t,
+                image: entry.gsx$image.$t,
+                reserved: entry.gsx$reserved.$t === 'true' // Преобразуем строку в boolean
+            }));
             renderGiftList();
         } catch (error) {
             console.error('Ошибка при загрузке данных:', error);
@@ -76,7 +82,7 @@ document.addEventListener('DOMContentLoaded', async () => {
         });
     };
 
-   // Confirm selection (update gifts.json on GitHub using API for PUT request)
+    // Confirm selection (update gifts in Google Sheet using Apps Script)
     document.getElementById('confirmButton').addEventListener('click', async () => {
         if (confirm('Вы уверены, что хотите подтвердить выбор?')) {
             selectedGifts.forEach(index => {
@@ -84,55 +90,29 @@ document.addEventListener('DOMContentLoaded', async () => {
             });
 
             try {
-                const response = await fetch(`https://api.github.com/repos/${GITHUB_REPO}/contents/${GITHUB_FILE_PATH}`, {
-                    method: 'PUT',
+                const response = await fetch(GOOGLE_APPS_SCRIPT_URL, {
+                    method: 'POST',
                     headers: {
-                        'Content-Type': 'application/json',
-                        'Authorization': `token ${GITHUB_TOKEN}`
+                        'Content-Type': 'application/json'
                     },
-                    body: JSON.stringify({
-                        message: 'Обновление списка подарков',
-                        content:  btoa(String.fromCharCode(...new TextEncoder().encode(JSON.stringify(gifts, null, 2)))), // ИСПРАВЛЕНО (TextEncoder)
-                        sha: await getFileSHAForUpdate()
-                    })
+                    body: JSON.stringify(gifts) // Отправляем весь массив gifts
                 });
-                console.log("PUT request response status:", response.status);
-                console.log("PUT request response text:", response.statusText);
+
                 if (response.ok) {
-                    alert('Список успешно обновлен на GitHub!');
+                    alert('Список успешно обновлен в Google Таблице!');
                     selectedGifts = [];
                     document.getElementById('confirmButton').disabled = true;
-                    renderGiftList();
+                    // loadGifts(); // Можно раскомментировать, чтобы сразу обновить таблицу на странице
                 } else {
-                    alert('Ошибка при обновлении списка на GitHub.');
+                    alert('Ошибка при обновлении списка в Google Таблице.');
                     const errorData = await response.json();
-                    console.error('GitHub API error:', errorData);
-                    console.log("GitHub API error data:", errorData);
+                    console.error('Google Apps Script error:', errorData);
                 }
             } catch (error) {
                 console.error('Ошибка при отправке данных:', error);
             }
         }
     });
-
-    // Function to get SHA for PUT request (using GitHub API)
-    const getFileSHAForUpdate = async () => {
-        try {
-            const response = await fetch(`https://api.github.com/repos/${GITHUB_REPO}/contents/${GITHUB_FILE_PATH}`, {
-                headers: {
-                    'Authorization': `token ${GITHUB_TOKEN}`
-                }
-            });
-            console.log("getFileSHAForUpdate response status:", response.status);
-            console.log("getFileSHAForUpdate response text:", response.statusText);
-            const data = await response.json();
-            console.log("getFileSHAForUpdate data:", data);
-            return data.sha;
-        } catch (error) {
-            console.error('Ошибка при получении SHA:', error);
-            return null;
-        }
-    };
 
     // Start the process
     loadGifts();
