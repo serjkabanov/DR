@@ -1,29 +1,19 @@
 document.addEventListener('DOMContentLoaded', async () => {
     const GITHUB_REPO = 'serjkabanov/DR';
-    const GITHUB_FILE_PATH = 'data/gifts.json';
+    const GITHUB_RAW_URL = `https://raw.githubusercontent.com/${GITHUB_REPO}/main/data/gifts.json`;
 
     let gifts = [];
     let selectedGifts = [];
 
-    // Загрузка данных из GitHub
+    // Загрузка данных из GitHub (через raw URL)
     const loadGifts = async () => {
         try {
-            const response = await fetch(`https://api.github.com/repos/${GITHUB_REPO}/contents/${GITHUB_FILE_PATH}`, {
-                headers: {
-                    'User-Agent': 'GiftListApp' // Добавляем User-Agent для совместимости с GitHub API
-                }
-            });
+            const response = await fetch(GITHUB_RAW_URL);
             if (!response.ok) {
-                throw new Error(`GitHub API error: ${response.status} ${response.statusText}`);
+                throw new Error(`Ошибка загрузки: ${response.status} ${response.statusText}`);
             }
-            const data = await response.json();
-            if (data.content) {
-                const decodedContent = atob(data.content); // Декодируем Base64
-                gifts = JSON.parse(decodedContent);
-                renderGiftList();
-            } else {
-                console.error('No content found in the response');
-            }
+            gifts = await response.json();
+            renderGiftList();
         } catch (error) {
             console.error('Ошибка при загрузке данных:', error);
         }
@@ -84,7 +74,7 @@ document.addEventListener('DOMContentLoaded', async () => {
         });
     };
 
-    // Подтверждение выбора (без обновления файла на GitHub)
+    // Подтверждение выбора (без обновления на GitHub)
     document.getElementById('confirmButton').addEventListener('click', () => {
         if (confirm('Вы уверены, что хотите подтвердить выбор?')) {
             selectedGifts.forEach(index => {
