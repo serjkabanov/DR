@@ -76,7 +76,7 @@ document.addEventListener('DOMContentLoaded', async () => {
         });
     };
 
-    // Confirm selection (update gifts.json on GitHub using API for PUT request)
+   // Confirm selection (update gifts.json on GitHub using API for PUT request)
     document.getElementById('confirmButton').addEventListener('click', async () => {
         if (confirm('Вы уверены, что хотите подтвердить выбор?')) {
             selectedGifts.forEach(index => {
@@ -88,24 +88,26 @@ document.addEventListener('DOMContentLoaded', async () => {
                     method: 'PUT',
                     headers: {
                         'Content-Type': 'application/json',
-                        'Authorization': `token ${GITHUB_TOKEN}` // Добавляем заголовок Authorization с токеном для PUT запроса
+                        'Authorization': `token ${GITHUB_TOKEN}`
                     },
                     body: JSON.stringify({
                         message: 'Обновление списка подарков',
                         content: btoa(JSON.stringify(gifts, null, 2)),
-                        sha: await getFileSHAForUpdate() // Используем функцию для получения SHA специально для PUT
+                        sha: await getFileSHAForUpdate()
                     })
                 });
-
+                console.log("PUT request response status:", response.status); // Добавлено
+                console.log("PUT request response text:", response.statusText); // Добавлено
                 if (response.ok) {
                     alert('Список успешно обновлен на GitHub!');
                     selectedGifts = [];
                     document.getElementById('confirmButton').disabled = true;
-                    renderGiftList(); // Перезагружаем список подарков (можно убрать, если не нужно сразу обновлять таблицу)
+                    renderGiftList();
                 } else {
                     alert('Ошибка при обновлении списка на GitHub.');
                     const errorData = await response.json();
                     console.error('GitHub API error:', errorData);
+                    console.log("GitHub API error data:", errorData); // Добавлено
                 }
             } catch (error) {
                 console.error('Ошибка при отправке данных:', error);
@@ -118,10 +120,13 @@ document.addEventListener('DOMContentLoaded', async () => {
         try {
             const response = await fetch(`https://api.github.com/repos/${GITHUB_REPO}/contents/${GITHUB_FILE_PATH}`, {
                 headers: {
-                    'Authorization': `token ${GITHUB_TOKEN}` // Добавляем заголовок Authorization с токеном для GET запроса SHA
+                    'Authorization': `token ${GITHUB_TOKEN}`
                 }
             });
+            console.log("getFileSHAForUpdate response status:", response.status); // Добавлено
+            console.log("getFileSHAForUpdate response text:", response.statusText); // Добавлено
             const data = await response.json();
+            console.log("getFileSHAForUpdate data:", data); // Добавлено
             return data.sha;
         } catch (error) {
             console.error('Ошибка при получении SHA:', error);
