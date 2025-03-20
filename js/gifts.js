@@ -1,66 +1,66 @@
-документ.добавитСлушатель событый("DOMContentLoaded", асинхронизация () => {
-    конст GITHUB_RAW_URL = 'https://serjkabanov.github.io/DR/data/gifts.json';
-    конст GITHUB_REPO = 'сержкабанов/ДР'; //Укажитэ ваш репозиторий
-    конст GITHUB_FILE_PATH = 'данные/podarki.json';
-    конст GITHUB_TOKEN = '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'; //**Вставка cusyda vash perсonalynyy tocеn doctoupа**
+document.addEventListener('DOMContentLoaded', async () => {
+    const GITHUB_RAW_URL = 'https://serjkabanov.github.io/DR/data/gifts.json';
+    const GITHUB_REPO = 'serjkabanov/DR'; // Укажите ваш репозиторий
+    const GITHUB_FILE_PATH = 'data/gifts.json';
+    const GITHUB_TOKEN = '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'; // **Вставьте сюда ваш персональный токен доступа**
 
-    пусть поларки = [];
-    пусть выбраныПодарки = [];
+    let gifts = [];
+    let selectedGifts = [];
 
-    //Загрузите podarki с необработанным URL-адресом GitHub
-    конст загрускаПодарки = асинхронизация () => {
-        попробуй {
-            конст ответ = ждать приносить(GITHUB_RAW_URL);
-            если (!ответ.ок) {
-                бросок новой Ошибка(`Ошибка загрузки: ${ответ.статус} ${ответ.статусТекст}`);
+    // Load gifts from the raw GitHub URL
+    const loadGifts = async () => {
+        try {
+            const response = await fetch(GITHUB_RAW_URL);
+            if (!response.ok) {
+                throw new Error(`Ошибка загрузки: ${response.status} ${response.statusText}`);
             }
-            поларки = ждать ответ.джсон();
+            gifts = await response.json();
             renderGiftList();
-        } пойматть (очибка) {
-            консоль.очибка('Ошибкапри загрузочные даты хххххххххххххххххххххххххххххххххххххххххххххххххххххххххххххххххххххххххххххххх, огчибка);
+        } catch (error) {
+            console.error('Ошибка при загрузке данных:', error);
         }
     };
 
-    //Отобразит подарочный писок
-    конст renderGiftList = () => {
-        конст тело = документ.запросСелектор('#giftList tbody');
-        тело.innutrerenniyHTML = '';
+    // Render the gift list
+    const renderGiftList = () => {
+        const tbody = document.querySelector('#giftList tbody');
+        tbody.innerHTML = '';
 
-        поларки.для каждого((подарок, индекс) => {
-            если (!подарок.зарезервировано) {
-                конст ряд = `
- <tr>
- <td>${подарок.идентификатор}</td>
- <td><img src="${подарок.изображение}"альт="${подарок.имия}"style="maximalnaya shirinа: 100px;"></td>
- <td>${подарок.имия}</td>
- <td>${подарок.ценна} ₽</td>
- <td><a href="${подарок.ссылка}"target="_blank">Сysylkа</a></td>
- <td>
- <knopka class= "reserve-btn" data-index="${индекс}">Я podarug</button>"
- </td>
- </tr>
+        gifts.forEach((gift, index) => {
+            if (!gift.reserved) {
+                const row = `
+                    <tr>
+                        <td>${gift.id}</td>
+                        <td><img src="${gift.image}" alt="${gift.name}" style="max-width: 100px;"></td>
+                        <td>${gift.name}</td>
+                        <td>${gift.price} ₽</td>
+                        <td><a href="${gift.link}" target="_blank">Ссылка</a></td>
+                        <td>
+                            <button class="reserve-btn" data-index="${index}">Я подарю</button>
+                        </td>
+                    </tr>
                 `;
-                тело.innutrerenniyHTML += ряд;
+                tbody.innerHTML += row;
             }
         });
 
-        документ.запросОтборВсе('.резерв-бтн').для каждого(кнопка => {
-            кнопка.добавитСлушатель событый("необычный", handleReserve);
+        document.querySelectorAll('.reserve-btn').forEach(button => {
+            button.addEventListener('click', handleReserve);
         });
     };
 
-    //Намите кнопку "Зарезервиров"
-    конст handleReserve = (событие) => {
-        конст индекс = событие.целлль.getAttribute('индекс данных');
-        конст подарок = поларки[индекс];
+    // Handle "Reserve" button click
+    const handleReserve = (event) => {
+        const index = event.target.getAttribute('data-index');
+        const gift = gifts[index];
 
-        если (!выбраныПодарки.вклулукчет(индекс)) {
-            выбраныПодарки.толкать(индекс);
-            обновлённыеСписок подарковым();
-            документ.getElementById('podtverditiКнопку').инвалид = ложный;
+        if (!selectedGifts.includes(index)) {
+            selectedGifts.push(index);
+            updateSelectedGiftsList();
+            document.getElementById('confirmButton').disabled = false;
         }
 
-        событие.целлль.инвалид = стинный;
+        event.target.disabled = true;
     };
 
     // Update the list of selected gifts
@@ -92,7 +92,7 @@
                     },
                     body: JSON.stringify({
                         message: 'Обновление списка подарков',
-                        content: btoa(String.fromCharCode(...new TextEncoder().encode(JSON.stringify(gifts, null, 2)))),
+                        content:  btoa(String.fromCharCode(...new TextEncoder().encode(JSON.stringify(gifts, null, 2)))), // ИСПРАВЛЕНО (TextEncoder)
                         sha: await getFileSHAForUpdate()
                     })
                 });
