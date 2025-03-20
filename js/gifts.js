@@ -1,11 +1,10 @@
 document.addEventListener('DOMContentLoaded', async () => {
-    const GITHUB_REPO = 'serjkabanov/DR';
-    const GITHUB_RAW_URL = `https://raw.githubusercontent.com/${GITHUB_REPO}/main/data/gifts.json`;
+    const GITHUB_RAW_URL = 'https://raw.githubusercontent.com/serjkabanov/DR/main/data/gifts.json';
 
     let gifts = [];
     let selectedGifts = [];
 
-    // Загрузка данных из GitHub (через raw URL)
+    // Load gifts from the raw GitHub URL
     const loadGifts = async () => {
         try {
             const response = await fetch(GITHUB_RAW_URL);
@@ -19,7 +18,7 @@ document.addEventListener('DOMContentLoaded', async () => {
         }
     };
 
-    // Отображение списка подарков
+    // Render the gift list
     const renderGiftList = () => {
         const tbody = document.querySelector('#giftList tbody');
         tbody.innerHTML = '';
@@ -47,7 +46,7 @@ document.addEventListener('DOMContentLoaded', async () => {
         });
     };
 
-    // Обработка нажатия "Я подарю"
+    // Handle "Reserve" button click
     const handleReserve = (event) => {
         const index = event.target.getAttribute('data-index');
         const gift = gifts[index];
@@ -61,7 +60,7 @@ document.addEventListener('DOMContentLoaded', async () => {
         event.target.disabled = true;
     };
 
-    // Обновление списка отмеченных подарков
+    // Update the list of selected gifts
     const updateSelectedGiftsList = () => {
         const ul = document.getElementById('selectedGifts');
         ul.innerHTML = '';
@@ -74,19 +73,19 @@ document.addEventListener('DOMContentLoaded', async () => {
         });
     };
 
-    // Подтверждение выбора (без обновления на GitHub)
+    // Confirm selection (local update only)
     document.getElementById('confirmButton').addEventListener('click', () => {
         if (confirm('Вы уверены, что хотите подтвердить выбор?')) {
             selectedGifts.forEach(index => {
-                gifts[index].reserved = true; // Обновляем локально
+                gifts[index].reserved = true; // Update locally
             });
             alert('Выбор подтвержден! Обновите файл gifts.json вручную на GitHub.');
             selectedGifts = [];
             document.getElementById('confirmButton').disabled = true;
-            renderGiftList(); // Перерисовываем список
+            renderGiftList(); // Re-render the list
         }
     });
 
-    // Инициализация
+    // Start the process
     loadGifts();
 });
