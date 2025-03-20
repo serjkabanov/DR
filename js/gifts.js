@@ -1,6 +1,6 @@
 document.addEventListener('DOMContentLoaded', async () => {
     const GOOGLE_SHEET_JSON_URL = 'https://sheets.googleapis.com/v4/spreadsheets/1Qd0Q7CbucpJdYDjuFbDl5sRqXOeafUBDHgaLqRHCxFY/values/GiftsData?alt=json&key=AIzaSyA1UzERW7ZnB4ltC5d9EzOrHFsbx0AVjv4'; // Вставьте сюда URL для JSON
-    const GOOGLE_APPS_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbyN7ONtfiR-RiFAnUISa6PGvRzscXWCXhde0up3IMlTP4X04OZ_ePYc0BKRr3wICnXY/exec'; // Вставьте сюда URL веб-приложения
+    const GOOGLE_APPS_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbye2TltjR7KIonNwM3RCai2r8dz313CV7KHooSV3QZTPL6dBu9X8KxOF3CGwhXJmICd/exec'; // Вставьте сюда URL веб-приложения
 
     let gifts = [];
     let selectedGifts = [];
@@ -102,7 +102,7 @@ document.addEventListener('DOMContentLoaded', async () => {
                     alert('Список успешно обновлен в Google Таблице!');
                     selectedGifts = [];
                     document.getElementById('confirmButton').disabled = true;
-                    // loadGifts(); // Можно раскомментировать, чтобы сразу обновить таблицу на странице
+                    loadGifts(); // Обновляем таблицу на странице
                 } else {
                     alert('Ошибка при обновлении списка в Google Таблице.');
                     const errorData = await response.json();
