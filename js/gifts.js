@@ -8,7 +8,11 @@ document.addEventListener('DOMContentLoaded', async () => {
     // Загрузка данных из GitHub
     const loadGifts = async () => {
         try {
-            const response = await fetch(`https://api.github.com/repos/${GITHUB_REPO}/contents/${GITHUB_FILE_PATH}`);
+            const response = await fetch(`https://api.github.com/repos/${GITHUB_REPO}/contents/${GITHUB_FILE_PATH}`, {
+                headers: {
+                    'User-Agent': 'GiftListApp' // Добавляем User-Agent для совместимости с GitHub API
+                }
+            });
             if (!response.ok) {
                 throw new Error(`GitHub API error: ${response.status} ${response.statusText}`);
             }
@@ -80,48 +84,18 @@ document.addEventListener('DOMContentLoaded', async () => {
         });
     };
 
-    // Подтверждение выбора
-    document.getElementById('confirmButton').addEventListener('click', async () => {
+    // Подтверждение выбора (без обновления файла на GitHub)
+    document.getElementById('confirmButton').addEventListener('click', () => {
         if (confirm('Вы уверены, что хотите подтвердить выбор?')) {
             selectedGifts.forEach(index => {
-                gifts[index].reserved = true;
+                gifts[index].reserved = true; // Обновляем локально
             });
-
-            try {
-                const response = await fetch(`https://api.github.com/repos/${GITHUB_REPO}/contents/${GITHUB_FILE_PATH}`, {
-                    method: 'PUT',
-                    headers: {
-                        'Content-Type': 'application/json'
-                    },
-                    body: JSON.stringify({
-                        message: 'Обновление списка подарков',
-                        content: btoa(JSON.stringify(gifts, null, 2)),
-                        sha: await getFileSHA()
-                    })
-                });
-
-                if (response.ok) {
-                    alert('Список успешно обновлен!');
-                    selectedGifts = [];
-                    document.getElementById('confirmButton').disabled = true;
-                    loadGifts();
-                } else {
-                    alert('Ошибка при обновлении списка.');
-                    const errorData = await response.json();
-                    console.error('GitHub API error:', errorData);
-                }
-            } catch (error) {
-                console.error('Ошибка при отправке данных:', error);
-            }
+            alert('Выбор подтвержден! Обновите файл gifts.json вручную на GitHub.');
+            selectedGifts = [];
+            document.getElementById('confirmButton').disabled = true;
+            renderGiftList(); // Перерисовываем список
         }
     });
-
-    // Получение SHA файла
-    const getFileSHA = async () => {
-        const response = await fetch(`https://api.github.com/repos/${GITHUB_REPO}/contents/${GITHUB_FILE_PATH}`);
-        const data = await response.json();
-        return data.sha;
-    };
 
     // Инициализация
     loadGifts();
