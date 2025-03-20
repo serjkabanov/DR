@@ -2,7 +2,7 @@ document.addEventListener('DOMContentLoaded', async () => {
     const GITHUB_RAW_URL = 'https://serjkabanov.github.io/DR/data/gifts.json';
     const GITHUB_REPO = 'serjkabanov/DR'; // Укажите ваш репозиторий
     const GITHUB_FILE_PATH = 'data/gifts.json';
-    const GITHUB_TOKEN = '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'; // **Вставьте сюда ваш персональный токен доступа**
+    const GITHUB_TOKEN = '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'; // **Вставьте сюда ваш персональный токен доступа**
 
     let gifts = [];
     let selectedGifts = [];
